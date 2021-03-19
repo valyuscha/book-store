@@ -17,6 +17,11 @@
     "plugins": [
         "react"
     ],
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    },
     "rules": {
       "semi": ["error", "never"],
       "linebreak-style": 0,

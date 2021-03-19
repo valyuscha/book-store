@@ -24,3 +24,5 @@ yarn-error.log*
 
 **.idea/**
 .husky/
+config/
+scripts/

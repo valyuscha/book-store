@@ -4,5 +4,6 @@ export const colors = {
   black: '#464646',
   section: '#cccccc',
   red: '#ff0000',
-  errorMessageBack: '#ffe2d9'
+  errorMessageBack: '#ffe2d9',
+  purple: '#be1036'
 }

@@ -1,7 +1,10 @@
+import {getCookie} from 'utils'
 import {LOGIN, LOGOUT} from '../actionTypes'
 
+const token = getCookie('token')
+
 const initialState = {
-  isLoggedIn: false
+  isLoggedIn: token !== 'null'
 }
 
 export const loginReducer = (state = initialState, action) => {

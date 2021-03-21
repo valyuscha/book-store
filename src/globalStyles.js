@@ -15,12 +15,6 @@ export default createGlobalStyle`
     color: ${colors.black};
     background: ${colors.global};
   }
-
-  #root {
-    width: 90%;
-    max-width: 1250px;
-    margin: 0 auto;
-  }
   
   ::-webkit-scrollbar {
     width: 5px;

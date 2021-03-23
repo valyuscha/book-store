@@ -19,20 +19,20 @@ const ErrorBoundary = (Component) => {
       return serverCommunication
     })
 
-    // useEffect(() => {
-    //   let closeMessageTimeOut
-    //   if (isResponseErrorMessageVisible) {
-    //     closeMessageTimeOut = setTimeout(() => {
-    //       dispatch(hideResponseErrorMessage())
-    //     }, 10000)
-    //   }
-    //
-    //   return () => {
-    //     if (isResponseErrorMessageVisible) {
-    //       clearTimeout(closeMessageTimeOut)
-    //     }
-    //   }
-    // }, [isResponseErrorMessageVisible])
+    useEffect(() => {
+      let closeMessageTimeOut
+      if (isResponseErrorMessageVisible) {
+        closeMessageTimeOut = setTimeout(() => {
+          dispatch(hideResponseErrorMessage())
+        }, 10000)
+      }
+
+      return () => {
+        if (isResponseErrorMessageVisible) {
+          clearTimeout(closeMessageTimeOut)
+        }
+      }
+    }, [isResponseErrorMessageVisible])
 
     return (
       <>

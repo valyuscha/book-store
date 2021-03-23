@@ -9,6 +9,7 @@ export const ModalWrapper = styled.div`
   bottom: 0;
   background: rgba(0, 0, 0, .6);
   display: ${({show}) => show ? 'block' : 'none'};
+  z-index: 9999;
 `
 
 export const ModalContentWrapper = styled.div`

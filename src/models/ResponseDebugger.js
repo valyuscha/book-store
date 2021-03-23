@@ -1,11 +1,9 @@
-import {showResponseErrorMessage} from 'store'
-
 class ResponseDebugger {
-  getResponse = async (request, dispatch) => {
+  getResponse = async (request, dispatch, func) => {
     try {
       return await request
     } catch (e) {
-      dispatch(showResponseErrorMessage())
+      dispatch(func())
     }
   }
 }

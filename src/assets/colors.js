@@ -5,5 +5,6 @@ export const colors = {
   section: '#cccccc',
   red: '#ff0000',
   errorMessageBack: '#ffe2d9',
-  purple: '#be1036'
+  purple: '#be1036',
+  cardBack: '#0ababa'
 }

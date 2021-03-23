@@ -9,7 +9,7 @@ export const LoginPageWrapper = styled.div`
 `
 
 export const LoginBlockWrapper = styled.div`
-  width: 100%;
+  width: 90%;
   max-width: 450px;
   background: ${colors.section};
   padding: 20px;

@@ -8,7 +8,7 @@ export const login = () => {
   }
 }
 
-export const logout = (history) => {
+export const logout = () => {
   document.cookie = `token=${null}`
   localStorage.removeItem('activeUser')
 

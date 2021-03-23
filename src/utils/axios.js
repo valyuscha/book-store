@@ -2,21 +2,21 @@ import BaseAxios from 'axios'
 import {getCookie} from './getCookie'
 
 export const axios = BaseAxios.create({
-  baseURL: 'https://js-band-api.glitch.me'
+  baseURL: 'https://js-band-store-api.glitch.me'
 })
 
 axios.interceptors.request.use(
   config => {
-    if (config.params && config.params.isLoggedIn) {
-      const token = getCookie('token')
+    if (config.params && config.params.token) {
+      // const token = getCookie('token')
 
       config.headers = {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
+        "Authorization": `Bearer ${config.params.token}`,
+        "Content-Type": "application/json"
       }
     } else {
       config.headers = {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       }
     }
 

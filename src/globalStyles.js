@@ -3,10 +3,11 @@ import {colors} from 'assets'
 
 export default createGlobalStyle`
   * {
-    font-family: Avenir, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     padding: 0;
     margin: 0;
     outline: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
   body,

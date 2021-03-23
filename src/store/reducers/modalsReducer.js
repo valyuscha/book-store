@@ -4,7 +4,7 @@ const initialState = {
   isConfirmLogoutModalVisible: false
 }
 
-export const ModalsReducer = (state = initialState, action) => {
+export const modalsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SHOW_CONFIRM_LOGOUT_MODAL:
       return {...state, isConfirmLogoutModalVisible: true}

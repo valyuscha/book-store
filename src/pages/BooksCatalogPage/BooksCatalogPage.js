@@ -1,65 +1,76 @@
-import React from 'react'
-import {useDispatch} from 'react-redux'
-import {logout} from 'store'
-import {WithModal} from 'hoc'
-import {ConfirmLogoutModal} from 'components'
-import {cartIcon, logoutIcon} from 'assets'
-import avatar from 'assets/images/avatar.jpg'
+import React, {useEffect, useState} from 'react'
+import {useSelector, useDispatch} from 'react-redux'
+import {Ellipsis} from 'react-awesome-spinners'
+import {getAllBooks} from 'store'
+import {ErrorBoundary} from 'hoc'
+import {getCookie} from 'utils'
 
 import {
-  BooksCatalogPageWrapper,
-  CartImg,
-  CartWrapper,
-  Header,
-  HeaderWrapper,
-  Logo,
-  LogoutButton,
-  LogoutImg,
-  LogoWrapper,
+  ConfirmLogoutModal,
+  BooksCatalogHeader,
+  BooksCatalogFilters,
+  BookCard
+} from 'components'
+
+import {bookIcon} from '../../assets'
+
+import {
   MainContentWrapper,
   MiniScreensLogo,
-  ProfileLogoutCartWrapper,
-  ProfileLogoutWrapper,
-  PurchasesAmount,
-  PurchasesAmountWrapper,
-  UserAvatar,
-  UserName
+  BooksCatalogPageWrapper,
+  LoaderWrapper,
+  BooksWrapper,
+  NoBooksWrapper,
+  BookImg,
+  NoBookMessage
 } from './style'
 
 const BooksCatalogPage = () => {
   const dispatch = useDispatch()
-  const activeUser = JSON.parse(localStorage.getItem('activeUser'))
-  console.log(activeUser)
+  const {allBooks, isLoading} = useSelector(({books}) => books)
+  const [booksForRender, setBooksForRender] = useState([])
+  const token = getCookie('token')
 
+  useEffect(() => {
+    dispatch(getAllBooks(token))
+  }, [])
+
+  useEffect(() => {
+    setBooksForRender(allBooks)
+  }, [allBooks])
+  
   return (
     <BooksCatalogPageWrapper>
-      <HeaderWrapper>
-        <Header>
-          <LogoWrapper>
-            <Logo>JS Band Store</Logo>
-          </LogoWrapper>
-          <ProfileLogoutCartWrapper>
-            <ProfileLogoutWrapper>
-              <LogoutButton onClick={() => dispatch(logout())}>
-                <LogoutImg src={logoutIcon} />
-              </LogoutButton>
-              <UserName>{activeUser.name}</UserName>
-              <UserAvatar src={avatar} />
-            </ProfileLogoutWrapper>
-            <CartWrapper>
-              <CartImg src={cartIcon} />
-              <PurchasesAmountWrapper>
-                <PurchasesAmount>9+</PurchasesAmount>
-              </PurchasesAmountWrapper>
-            </CartWrapper>
-          </ProfileLogoutCartWrapper>
-        </Header>
-      </HeaderWrapper>
-      <MainContentWrapper>
-        <MiniScreensLogo>JS Band Store</MiniScreensLogo>
-      </MainContentWrapper>
+      {!isLoading ? (
+        <>
+          <BooksCatalogHeader />
+          <ConfirmLogoutModal />
+          <MainContentWrapper>
+            <MiniScreensLogo>JS Band Store</MiniScreensLogo>
+            <BooksCatalogFilters
+              booksForRender={booksForRender}
+              filterBooksFnc={setBooksForRender} />
+            {booksForRender.length ? (
+              <BooksWrapper>
+                {booksForRender.map(book => (
+                  <BookCard key={book.id} book={book} />
+                ))}
+              </BooksWrapper>
+            ) : (
+              <NoBooksWrapper>
+                <BookImg src={bookIcon} />
+                <NoBookMessage>No books</NoBookMessage>
+              </NoBooksWrapper>
+            )}
+          </MainContentWrapper>
+        </>
+      ) : (
+        <LoaderWrapper>
+          <Ellipsis color="#fff" />
+        </LoaderWrapper>
+      )}
     </BooksCatalogPageWrapper>
   )
 }
 
-export default WithModal(BooksCatalogPage, <ConfirmLogoutModal />, true)
+export default ErrorBoundary(BooksCatalogPage)

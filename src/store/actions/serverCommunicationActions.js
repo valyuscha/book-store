@@ -1,4 +1,7 @@
-import {SHOW_RESPONSE_ERROR_MESSAGE, HIDE_RESPONSE_ERROR_MESSAGE} from '../actionTypes'
+import {
+  SHOW_RESPONSE_ERROR_MESSAGE,
+  HIDE_RESPONSE_ERROR_MESSAGE
+} from '../actionTypes'
 
 export const showResponseErrorMessage = () => {
   return {

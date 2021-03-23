@@ -1,6 +1,6 @@
 import {serverCommunicationMethods} from 'serverCommunication'
+import {startLoading, stopLoading} from 'store'
 import {LOGIN, LOGOUT} from '../actionTypes'
-import {startLoading, stopLoading} from './loaderActions'
 
 export const login = () => {
   return {
@@ -9,6 +9,9 @@ export const login = () => {
 }
 
 export const logout = () => {
+  document.cookie = `token=${null}`
+  localStorage.removeItem('activeUser')
+
   return {
     type: LOGOUT
   }
@@ -19,8 +22,14 @@ export const auth = (userName) => {
     dispatch(startLoading())
     const response = await serverCommunicationMethods.login(userName, dispatch)
     if (response && response.data.token) {
-      console.log('response', response)
-      document.cookie = `token=${response.token}`
+      document.cookie = `token=${response.data.token}`
+
+      const userData = {
+        name: response.data.username,
+        avatar: response.data.avatar
+      }
+
+      localStorage.setItem('activeUser', JSON.stringify(userData))
       dispatch(login())
     }
     dispatch(stopLoading())

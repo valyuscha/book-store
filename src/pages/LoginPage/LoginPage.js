@@ -73,6 +73,7 @@ const LoginPage = () => {
           <Form>
             <Input
               type="text"
+              fieldType="login"
               label="Name"
               placeholder="John Adams"
               value={nameControl.value}

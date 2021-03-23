@@ -1,4 +1,5 @@
 import {axios} from 'utils'
+import {showResponseErrorMessage, logout} from 'store'
 import ResponseDebugger from './ResponseDebugger'
 
 class RequestsSender extends ResponseDebugger {
@@ -9,8 +10,15 @@ class RequestsSender extends ResponseDebugger {
 
     return await this.getResponse(
       axios.post('/signin', JSON.stringify(formData)),
-      dispatch
+      dispatch,
+      showResponseErrorMessage
     )
+  }
+
+  getAllBooks = async (token, dispatch) => {
+    return await this.getResponse(axios.get('/books', {
+      params: {token}
+    }), dispatch, logout)
   }
 }
 

@@ -86,6 +86,8 @@
     "no-useless-escape": "off",
     "quote-props": "off",
     "quotes": "off",
-    "no-alert": "off"
+    "no-alert": "off",
+    "no-restricted-syntax": "off",
+    "guard-for-in": "off"
   }
 }

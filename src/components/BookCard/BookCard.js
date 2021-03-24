@@ -1,4 +1,5 @@
 import React from 'react'
+import {useHistory} from 'react-router-dom'
 import {Button} from 'components/UI'
 
 import {
@@ -13,6 +14,8 @@ import {
 } from './style'
 
 const BookCard = ({book}) => {
+  const history = useHistory()
+
   return (
     <CardWrapper>
       <CardContentWrapper>
@@ -22,7 +25,9 @@ const BookCard = ({book}) => {
         <PriceViewWrapper>
           <Price>{book.price}$</Price>
           <ViewButtonWrapper>
-            <Button>View</Button>
+            <Button onClick={() => history.push(`/catalog/${book.id}`)}>
+              View
+            </Button>
           </ViewButtonWrapper>
         </PriceViewWrapper>
       </CardContentWrapper>

@@ -17,7 +17,7 @@ import {
 
 const LoginPage = () => {
   const dispatch = useDispatch()
-  const {isLoading} = useSelector(({loader}) => loader)
+  const {isLoading} = useSelector(({login}) => login)
 
   const [nameControl, setNameControl] = useState({
     value: '',

@@ -1,6 +1,6 @@
 import {checkValidity} from 'utils'
 
-describe('Should return false if value is not valid', () => {
+describe('Check validity of the fields', () => {
   const rules = {
     required: true,
     minLength: 4,

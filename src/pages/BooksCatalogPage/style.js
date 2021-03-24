@@ -8,19 +8,10 @@ export const BooksCatalogPageWrapper = styled.div`
 export const MainContentWrapper = styled.div`
   width: 90%;
   max-width: 1250px;
-  padding-top: 90px;
   margin: 0 auto 15px;
-`
 
-export const MiniScreensLogo = styled.h1`
-  color: ${colors.white};
-  font-size: 24px;
-  padding-bottom: 20px;
-  margin-bottom: 30px;
-  border-bottom: 1px solid ${colors.black};
-  
   @media screen and (min-width: 650px) {
-    display: none;
+    padding-top: 90px;
   }
 `
 

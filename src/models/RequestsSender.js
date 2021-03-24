@@ -20,6 +20,12 @@ class RequestsSender extends ResponseDebugger {
       params: {token}
     }), dispatch, logout)
   }
+
+  getCurrentBookInfo = async (bookId, token, dispatch) => {
+    return await this.getResponse(axios.get(`/books/${bookId}`, {
+      params: {token}
+    }), dispatch, logout)
+  }
 }
 
 export default RequestsSender

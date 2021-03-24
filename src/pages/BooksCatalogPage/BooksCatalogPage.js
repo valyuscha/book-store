@@ -1,22 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {Ellipsis} from 'react-awesome-spinners'
-import {getAllBooks} from 'store'
+import {getAllBooks, finishGettingBooksInfo} from 'store'
 import {ErrorBoundary} from 'hoc'
 import {getCookie} from 'utils'
-
-import {
-  ConfirmLogoutModal,
-  BooksCatalogHeader,
-  BooksCatalogFilters,
-  BookCard
-} from 'components'
-
-import {bookIcon} from '../../assets'
+import {HeaderLayout} from 'layouts'
+import {BooksCatalogFilters, BookCard} from 'components'
+import {bookIcon} from 'assets'
 
 import {
   MainContentWrapper,
-  MiniScreensLogo,
   BooksCatalogPageWrapper,
   LoaderWrapper,
   BooksWrapper,
@@ -38,18 +31,19 @@ const BooksCatalogPage = () => {
   useEffect(() => {
     setBooksForRender(allBooks)
   }, [allBooks])
+
+  useEffect(() => {
+    if (booksForRender.length && isLoading) {
+      dispatch(finishGettingBooksInfo())
+    }
+  }, [booksForRender, isLoading])
   
   return (
     <BooksCatalogPageWrapper>
       {!isLoading ? (
-        <>
-          <BooksCatalogHeader />
-          <ConfirmLogoutModal />
+        <HeaderLayout>
           <MainContentWrapper>
-            <MiniScreensLogo>JS Band Store</MiniScreensLogo>
-            <BooksCatalogFilters
-              booksForRender={booksForRender}
-              filterBooksFnc={setBooksForRender} />
+            <BooksCatalogFilters filterBooksFnc={setBooksForRender} />
             {booksForRender.length ? (
               <BooksWrapper>
                 {booksForRender.map(book => (
@@ -63,7 +57,7 @@ const BooksCatalogPage = () => {
               </NoBooksWrapper>
             )}
           </MainContentWrapper>
-        </>
+        </HeaderLayout>
       ) : (
         <LoaderWrapper>
           <Ellipsis color="#fff" />

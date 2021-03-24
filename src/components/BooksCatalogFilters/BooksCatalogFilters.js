@@ -15,7 +15,7 @@ import {
   OpenCloseFiltersIcon
 } from './style'
 
-const BooksCatalogFilters = ({booksForRender, filterBooksFnc}) => {
+const BooksCatalogFilters = ({filterBooksFnc}) => {
   const [areFiltersVisible, setAreFiltersVisible] = useState(() => {
     return window.innerWidth > 400
   })

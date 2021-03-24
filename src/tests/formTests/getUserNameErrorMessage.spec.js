@@ -1,7 +1,6 @@
 import {getUserNameErrorMessage} from 'pages/LoginPage/getUserNameErrorMessage'
 
-describe('Should return error message if value is smaller then 3 or longer then 16'
-  + ' symbols', () => {
+describe('Check validity of error messages', () => {
   it('should return \'Username is not valid\' message', () => {
     expect(getUserNameErrorMessage('Jan')).toEqual('Username is not valid')
     expect(getUserNameErrorMessage('Valentinefhdjgkturhfnb'))

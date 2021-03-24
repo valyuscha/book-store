@@ -1,3 +1,5 @@
 export * from './checkValidity'
-export * from './getCookie'
+export * from './cookie'
 export * from './axios'
+export * from './chooseBooksAmount'
+export * from './totalPrice'

@@ -13,7 +13,7 @@ export const ButtonElem = styled.button`
   background: ${colors.global};
   cursor: pointer;
   
-  ${p => p.btnType === 'purchase' && `background: ${colors.purple}`};
+  ${p => p.btnType === 'purple' && `background: ${colors.purple}`};
   
   @media screen and (max-width: 384px) {
     font-size: 14px;

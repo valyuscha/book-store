@@ -35,7 +35,7 @@ const CartPage = () => {
           <CartPageContent>
             <PurchaseButtonWrapper>
               <Button
-                btnType="purchase"
+                btnType="purple"
                 onClick={() => dispatch(purchase(addedBooksToCartArr, token))}>
                 Purchase
               </Button>

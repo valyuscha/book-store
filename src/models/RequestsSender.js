@@ -46,8 +46,7 @@ class RequestsSender extends ResponseDebugger {
       '/purchase',
       JSON.stringify(purchaseData),
       {
-        params: {token},
-        mode: "no-cors"
+        params: {token}
       },
       dispatch,
       () => console.log('Error')

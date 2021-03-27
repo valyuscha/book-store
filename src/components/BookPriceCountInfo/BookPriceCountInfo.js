@@ -1,55 +1,90 @@
-import React, {useState} from 'react'
-import {useSelector} from 'react-redux'
+import React, {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {addNewBookToCart} from 'store'
 import {Button} from 'components/UI'
-import {plusIcon, minusIcon} from 'assets'
-import {chooseBooksAmount, countTotalPriceOfSameBooks} from 'utils'
+import {minusIcon, plusIcon} from 'assets'
+import {countTotalPriceOfSameBooks} from 'utils'
+import {getChangedBooksCount} from './getChangedBooksCount'
+import {disableAddingNewBooksIfThereISNoCurrentBooks} from './disableAddingNewBooks'
 
 import {
-  BookPriceCountInfoWrapper,
-  InfoPartWrapper,
-  InfoLabel,
-  InfoValue,
   AddToCartButtonWrapper,
-  CountValue,
+  BookPriceCountInfoWrapper,
   Count,
+  CountValue,
   IncreaseDecreaseButton,
-  IncreaseDecreaseIcon
+  IncreaseDecreaseIcon,
+  InfoLabel,
+  InfoPartWrapper,
+  InfoValue
 } from './style'
 
 const BookPriceCountInfo = () => {
+  const dispatch = useDispatch()
   const {currentBookInfo} = useSelector(({books}) => books)
-  const [totalPrice, setTotalPrice] = useState(currentBookInfo.price)
+  const addedToCartBooks = useSelector(({cart}) => cart.addedBooks)
+  const [totalPrice, setTotalPrice] = useState(0)
   const [booksCount, setBooksCount] = useState(1)
-  const [canIncreaseBooksAmount, setCanIncreaseBooksAmount] = useState(true)
-  const [canDecreaseBooksAmount, setCanDecreaseBooksAmount] = useState(false)
+  const [canIncreaseBooksCount, setCanIncreaseBooksCount] = useState(true)
+  const [canDecreaseBooksCount, setCanDecreaseBooksCount] = useState(false)
 
-  const changeBooksCountHandler = (action) => {
-    const changedBooksAmount = chooseBooksAmount(
+  useEffect(() => {
+    disableAddingNewBooksIfThereISNoCurrentBooks(
+      addedToCartBooks,
+      currentBookInfo,
+      setBooksCount,
+      setCanIncreaseBooksCount,
+      setTotalPrice
+    )
+  }, [currentBookInfo])
+
+  const changeBooksAmountHandler = (action) => {
+    const currentBookInCart = Object.entries(addedToCartBooks).filter(book => {
+      if (book[0] === currentBookInfo.id) {
+        return book
+      }
+    })
+
+    const changedBooksCount = getChangedBooksCount(
+      currentBookInCart,
       booksCount,
-      currentBookInfo.count,
+      currentBookInfo,
+      setCanIncreaseBooksCount,
       action
     )
 
-    const changedTotalPrice = countTotalPriceOfSameBooks(
-      currentBookInfo.price,
-      changedBooksAmount
-    )
+    if (changedBooksCount) {
+      const changedTotalPrice = countTotalPriceOfSameBooks(
+        currentBookInfo.price,
+        changedBooksCount
+      )
 
-    setTotalPrice(changedTotalPrice)
-
-    if (changedBooksAmount === currentBookInfo.count) {
-      setCanIncreaseBooksAmount(false)
-    } else if (changedBooksAmount < currentBookInfo.count) {
-      setCanIncreaseBooksAmount(true)
+      setTotalPrice(changedTotalPrice)
     }
 
-    if (changedBooksAmount > 1) {
-      setCanDecreaseBooksAmount(true)
-    } else if (changedBooksAmount === 1) {
-      setCanDecreaseBooksAmount(false)
+    if (changedBooksCount > 1) {
+      setCanDecreaseBooksCount(true)
+    } else if (changedBooksCount === 1) {
+      setCanDecreaseBooksCount(false)
     }
 
-    setBooksCount(changedBooksAmount)
+    setBooksCount(changedBooksCount)
+  }
+
+  const addNewBookToCartHandler = () => {
+    if (booksCount) {
+      dispatch(addNewBookToCart(currentBookInfo, booksCount, totalPrice))
+      setBooksCount(1)
+      setCanDecreaseBooksCount(false)
+
+      disableAddingNewBooksIfThereISNoCurrentBooks(
+        addedToCartBooks,
+        currentBookInfo,
+        setBooksCount,
+        setCanIncreaseBooksCount,
+        setTotalPrice
+      )
+    }
   }
 
   return (
@@ -62,14 +97,14 @@ const BookPriceCountInfo = () => {
         <InfoLabel>Count</InfoLabel>
         <CountValue>
           <IncreaseDecreaseButton
-            canIncreaseBooksAmount={canIncreaseBooksAmount}
-            onClick={() => changeBooksCountHandler('add')}>
+            canIncreaseBooksAmount={canIncreaseBooksCount}
+            onClick={() => changeBooksAmountHandler('add')}>
             <IncreaseDecreaseIcon src={plusIcon} />
           </IncreaseDecreaseButton>
           <Count>{booksCount}</Count>
           <IncreaseDecreaseButton
-            canDecreaseBooksAmount={canDecreaseBooksAmount}
-            onClick={() => changeBooksCountHandler('remove')}>
+            canDecreaseBooksAmount={canDecreaseBooksCount}
+            onClick={() => changeBooksAmountHandler('remove')}>
             <IncreaseDecreaseIcon src={minusIcon} />
           </IncreaseDecreaseButton>
         </CountValue>
@@ -79,7 +114,7 @@ const BookPriceCountInfo = () => {
         <InfoValue>{totalPrice}</InfoValue>
       </InfoPartWrapper>
       <AddToCartButtonWrapper>
-        <Button>Add to Cart</Button>
+        <Button onClick={addNewBookToCartHandler}>Add to Cart</Button>
       </AddToCartButtonWrapper>
     </BookPriceCountInfoWrapper>
   )

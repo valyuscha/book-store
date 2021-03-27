@@ -20,7 +20,7 @@ export const booksReducer = (state = initialState, action) => {
     case FINISH_GETTING_BOOKS_INFO:
       return {...state, isLoading: false}
     case SET_CURRENT_BOOK_INFO:
-      return {...state, currentBookInfo: action.payload, isLoading: false}
+      return {...state, currentBookInfo: action.payload}
     default:
       return state
   }

@@ -49,6 +49,7 @@ export const getCurrentBookInfo = (bookId, token) => {
 
     if (response && response.data) {
       dispatch(setCurrentBookInfo(response.data))
+      dispatch(finishGettingBooksInfo())
     }
   }
 }

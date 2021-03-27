@@ -88,6 +88,7 @@
     "quotes": "off",
     "no-alert": "off",
     "no-restricted-syntax": "off",
-    "guard-for-in": "off"
+    "guard-for-in": "off",
+    "prefer-destructuring": "off"
   }
 }

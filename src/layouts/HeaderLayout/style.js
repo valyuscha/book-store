@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import {colors} from 'assets'
+import {ReactComponent as CartIcon} from 'assets/images/cartIcon.svg'
 
 export const MiniScreensLogo = styled.h1`
   width: 90%;
@@ -91,7 +92,7 @@ export const CartWrapper = styled.div`
   margin-left: 20px;  
 `
 
-export const CartImg = styled.img`
+export const CartImg = styled(CartIcon)`
   width: 25px;  
   height: 25px; 
   margin-right: 10px;

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {Ellipsis} from 'react-awesome-spinners'
-import {getAllBooks, finishGettingBooksInfo} from 'store'
+import {getAllBooks, finishGettingBooksInfo, startGettingBooksInfo} from 'store'
 import {ErrorBoundary} from 'hoc'
 import {getCookie} from 'utils'
 import {HeaderLayout} from 'layouts'
@@ -25,6 +25,7 @@ const BooksCatalogPage = () => {
   const token = getCookie('token')
 
   useEffect(() => {
+    dispatch(startGettingBooksInfo())
     dispatch(getAllBooks(token))
   }, [])
 

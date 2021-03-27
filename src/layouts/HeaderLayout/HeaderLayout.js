@@ -1,12 +1,11 @@
 import React from 'react'
-import {useDispatch} from 'react-redux'
-import {useHistory} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
+import {useHistory, useLocation} from 'react-router-dom'
 import {showConfirmLogoutModal} from 'store'
 import {ConfirmLogoutModal} from 'components'
-import {cartIcon, logoutIcon} from 'assets'
+import {logoutIcon} from 'assets'
 
 import {
-  MiniScreensLogo,
   CartImg,
   CartWrapper,
   Header,
@@ -15,6 +14,7 @@ import {
   LogoutButton,
   LogoutImg,
   LogoWrapper,
+  MiniScreensLogo,
   ProfileLogoutCartWrapper,
   ProfileLogoutWrapper,
   PurchasesAmount,
@@ -26,7 +26,23 @@ import {
 const HeaderLayout = ({children}) => {
   const dispatch = useDispatch()
   const history = useHistory()
+  const location = useLocation()
+  const {totalCount} = useSelector(({cart}) => cart)
   const activeUser = JSON.parse(localStorage.getItem('activeUser'))
+
+  const goToCartPageHandler = (event) => {
+    if (location.pathname !== '/cart') {
+      const {tagName} = event.target
+
+      if (
+        tagName.toLowerCase() === 'svg'
+        || tagName.toLowerCase() === 'path'
+        || tagName.toLowerCase() === 'span'
+      ) {
+        history.push('/cart')
+      }
+    }
+  }
 
   return (
     <>
@@ -45,10 +61,12 @@ const HeaderLayout = ({children}) => {
               <UserName>{activeUser.name}</UserName>
               <UserAvatar src={activeUser.avatar} />
             </ProfileLogoutWrapper>
-            <CartWrapper>
-              <CartImg src={cartIcon} />
+            <CartWrapper onClick={goToCartPageHandler}>
+              <CartImg fill="#fff" />
               <PurchasesAmountWrapper>
-                <PurchasesAmount>9+</PurchasesAmount>
+                <PurchasesAmount>
+                  {totalCount > 9 ? '9+' : totalCount}
+                </PurchasesAmount>
               </PurchasesAmountWrapper>
             </CartWrapper>
           </ProfileLogoutCartWrapper>

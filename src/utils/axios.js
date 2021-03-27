@@ -1,5 +1,4 @@
 import BaseAxios from 'axios'
-import {getCookie} from './cookie'
 
 export const axios = BaseAxios.create({
   baseURL: 'https://js-band-store-api.glitch.me'

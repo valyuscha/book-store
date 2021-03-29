@@ -1,21 +1,15 @@
 import styled from 'styled-components'
 
-export const BookInfoPageWrapper = styled.div`
-  height: calc(100vh - 79px);
-  overflow: auto;
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-
-  @media screen and (max-width: 650px) {
-    height: calc(100vh - 70px);
-  }
-`
+export const BookInfoPageWrapper = styled.div``
 
 export const BookInfoWrapper = styled.div`
   width: 90%;
   max-width: 1250px;
   margin: 20px auto;
+  
+  @media screen and (min-width: 650px) {
+    padding-top: 80px;
+  }
 `
 
 export const BookTitle = styled.h2`

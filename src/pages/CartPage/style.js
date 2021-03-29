@@ -1,17 +1,7 @@
 import styled from 'styled-components'
 import {ReactComponent as CartIcon} from 'assets/images/cartIcon.svg'
 
-export const CartPageWrapper = styled.div`
-  height: calc(100vh - 79px);
-  overflow: auto;
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-
-  @media screen and (max-width: 650px) {
-    height: calc(100vh - 70px);
-  }
-`
+export const CartPageWrapper = styled.div``
 
 export const EmptyCartBlockWrapper = styled.div`
   margin-top: 110px;
@@ -38,7 +28,7 @@ export const CartPageContent = styled.div`
   margin: 0 auto 15px;
 
   @media screen and (min-width: 650px) {
-    padding-top: 30px;
+    padding-top: 110px;
   }
 `
 

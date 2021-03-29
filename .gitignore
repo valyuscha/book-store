@@ -8,6 +8,8 @@
 # testing
 /coverage
 
+/build
+
 # misc
 .DS_Store
 .env.local
@@ -21,3 +23,6 @@ yarn-error.log*
 
 **.idea/**
 .gradle/
+.firebaserc
+firebase.json
+.firebase/

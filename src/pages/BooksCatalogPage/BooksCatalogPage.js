@@ -9,7 +9,6 @@ import {Loader} from 'components/UI'
 
 import {
   BookImg,
-  BooksCatalogPageWrapper,
   BooksWrapper,
   MainContentWrapper,
   NoBookMessage,
@@ -37,27 +36,25 @@ const BooksCatalogPage = () => {
   }, [booksForRender, isLoading])
 
   return (
-    <BooksCatalogPageWrapper>
-      <HeaderLayout>
-        {!isLoading ? (
-          <MainContentWrapper>
-            <BooksCatalogFilters filterBooksFnc={setBooksForRender} />
-            {booksForRender.length ? (
-              <BooksWrapper>
-                {booksForRender.map(book => (
-                  <BookCard key={book.id} book={book} />
-                ))}
-              </BooksWrapper>
-            ) : (
-              <NoBooksWrapper>
-                <BookImg src={bookIcon} />
-                <NoBookMessage>No books</NoBookMessage>
-              </NoBooksWrapper>
-            )}
-          </MainContentWrapper>
-        ) : <Loader />}
-      </HeaderLayout>
-    </BooksCatalogPageWrapper>
+    <HeaderLayout>
+      {!isLoading ? (
+        <MainContentWrapper>
+          <BooksCatalogFilters filterBooksFnc={setBooksForRender} />
+          {booksForRender.length ? (
+            <BooksWrapper>
+              {booksForRender.map(book => (
+                <BookCard key={book.id} book={book} />
+              ))}
+            </BooksWrapper>
+          ) : (
+            <NoBooksWrapper>
+              <BookImg src={bookIcon} />
+              <NoBookMessage>No books</NoBookMessage>
+            </NoBooksWrapper>
+          )}
+        </MainContentWrapper>
+      ) : <Loader />}
+    </HeaderLayout>
   )
 }
 

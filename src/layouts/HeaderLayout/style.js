@@ -104,7 +104,7 @@ export const PurchasesAmount = styled.span`
 export const MiniScreensLogoWrapper = styled.div`
   width: 90%;
   max-width: 1250px;
-  padding: 20px 0;
+  padding: 90px 0 20px;
   margin: 0 auto 30px;
   border-bottom: 1px solid ${colors.black};
 

@@ -34,10 +34,12 @@ export const setCurrentBookInfo = (bookInfo) => {
 
 export const getAllBooks = () => {
   return async dispatch => {
+    dispatch(startLoading())
     const response = await serverCommunicationMethods.getAllBooks(dispatch)
     if (response && response.data) {
       dispatch(setAllBooks(response.data))
     }
+    dispatch(stopLoading())
   }
 }
 

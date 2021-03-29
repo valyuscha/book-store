@@ -1,6 +1,7 @@
-import React from 'react'
-import {useSelector} from 'react-redux'
+import React, {useEffect} from 'react'
+import {useSelector, useDispatch} from 'react-redux'
 import {Switch, Route} from 'react-router-dom'
+import {getAllBooks} from 'store'
 
 import {
   LoginPage,
@@ -11,7 +12,14 @@ import {
 } from 'pages'
 
 function App() {
+  const dispatch = useDispatch()
   const {isLoggedIn} = useSelector(({login}) => login)
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(getAllBooks())
+    }
+  }, [])
 
   if (!isLoggedIn) {
     return (

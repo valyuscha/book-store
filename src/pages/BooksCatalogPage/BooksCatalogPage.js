@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {getAllBooks, startLoading, stopLoading} from 'store'
+import {useSelector} from 'react-redux'
 import {ErrorBoundary} from 'hoc'
 import {HeaderLayout} from 'layouts'
 import {BookCard, BooksCatalogFilters} from 'components'
@@ -16,24 +15,12 @@ import {
 } from './style'
 
 const BooksCatalogPage = () => {
-  const dispatch = useDispatch()
   const {allBooks, isLoading} = useSelector(({books}) => books)
   const [booksForRender, setBooksForRender] = useState([])
 
   useEffect(() => {
-    dispatch(startLoading())
-    dispatch(getAllBooks())
-  }, [])
-
-  useEffect(() => {
     setBooksForRender(allBooks)
   }, [allBooks])
-
-  useEffect(() => {
-    if (booksForRender.length && isLoading) {
-      dispatch(stopLoading())
-    }
-  }, [booksForRender, isLoading])
 
   return (
     <HeaderLayout>

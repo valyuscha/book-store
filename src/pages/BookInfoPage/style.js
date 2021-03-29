@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-export const BookInfoPageWrapper = styled.div``
-
 export const BookInfoWrapper = styled.div`
   width: 90%;
   max-width: 1250px;

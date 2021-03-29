@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 import {ReactComponent as CartIcon} from 'assets/images/cartIcon.svg'
 
-export const CartPageWrapper = styled.div``
-
 export const EmptyCartBlockWrapper = styled.div`
   margin-top: 110px;
   text-align: center;

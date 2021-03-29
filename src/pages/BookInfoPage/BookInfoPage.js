@@ -11,7 +11,6 @@ import {
   BookCover,
   BookCoverAuthorLevelWrapper,
   BookInfoContent,
-  BookInfoPageWrapper,
   BookInfoPartWrapper,
   BookInfoWrapper,
   BookMiniInfoPart,
@@ -72,37 +71,35 @@ const BookInfoPage = () => {
   }
 
   return (
-    <BookInfoPageWrapper>
-      <HeaderLayout>
-        {!isLoading && !isCurrentBookEmpty ? (
-          <>
-            <BookInfoWrapper>
-              <BookTitle>{currentBookInfo.title}</BookTitle>
-              <BookInfoContent>
-                <BookInfoPartWrapper>
-                  <BookCoverAuthorLevelWrapper>
-                    <BookCover cover={currentBookInfo.cover} />
-                    <BooksAuthorLevel />
-                  </BookCoverAuthorLevelWrapper>
-                  <TagsDescription />
-                </BookInfoPartWrapper>
-                <BookMiniInfoPart>
+    <HeaderLayout>
+      {!isLoading && !isCurrentBookEmpty ? (
+        <>
+          <BookInfoWrapper>
+            <BookTitle>{currentBookInfo.title}</BookTitle>
+            <BookInfoContent>
+              <BookInfoPartWrapper>
+                <BookCoverAuthorLevelWrapper>
                   <BookCover cover={currentBookInfo.cover} />
-                  <BookMiniInfoWrapper>
-                    <BooksAuthorLevel />
-                    <TagsDescription />
-                  </BookMiniInfoWrapper>
-                </BookMiniInfoPart>
-                <BookPriceCountInfoWrapper>
-                  <BookPriceCountInfo />
-                </BookPriceCountInfoWrapper>
-              </BookInfoContent>
-            </BookInfoWrapper>
-            <AddedBookToCartModal />
-          </>
-        ) : <Loader />}
-      </HeaderLayout>
-    </BookInfoPageWrapper>
+                  <BooksAuthorLevel />
+                </BookCoverAuthorLevelWrapper>
+                <TagsDescription />
+              </BookInfoPartWrapper>
+              <BookMiniInfoPart>
+                <BookCover cover={currentBookInfo.cover} />
+                <BookMiniInfoWrapper>
+                  <BooksAuthorLevel />
+                  <TagsDescription />
+                </BookMiniInfoWrapper>
+              </BookMiniInfoPart>
+              <BookPriceCountInfoWrapper>
+                <BookPriceCountInfo />
+              </BookPriceCountInfoWrapper>
+            </BookInfoContent>
+          </BookInfoWrapper>
+          <AddedBookToCartModal />
+        </>
+      ) : <Loader />}
+    </HeaderLayout>
   )
 }
 

@@ -9,7 +9,6 @@ import {
   CartImg,
   CartItemsWrapper,
   CartPageContent,
-  CartPageWrapper,
   EmptyCartBlockWrapper,
   EmptyCartMessage,
   EmptyTrashButtonWrapper,
@@ -29,55 +28,53 @@ const CartPage = () => {
   })
 
   return (
-    <CartPageWrapper>
-      <HeaderLayout>
-        {!isLoading ? (
-          <CartPageContent>
-            {addedBooksToCartArr.length ? (
-              <>
-                <PurchaseButtonWrapper>
+    <HeaderLayout>
+      {!isLoading ? (
+        <CartPageContent>
+          {addedBooksToCartArr.length ? (
+            <>
+              <PurchaseButtonWrapper>
+                <Button
+                  btnType="purple"
+                  onClick={() => dispatch(purchase(addedBooksToCartArr))}>
+                  Purchase
+                </Button>
+              </PurchaseButtonWrapper>
+              <CartItemsWrapper>
+                {addedBooksToCartArr.map(book => {
+                  return (
+                    <CartItem
+                      key={book.id}
+                      allBooks={addedBooksToCartArr}
+                      book={book} />
+                  )
+                })}
+              </CartItemsWrapper>
+              <EmptyTrashTotalCountPriceWrapper>
+                <EmptyTrashButtonWrapper>
                   <Button
                     btnType="purple"
-                    onClick={() => dispatch(purchase(addedBooksToCartArr))}>
-                    Purchase
+                    onClick={() => dispatch(showConfirmClearCartModal())}>
+                    Empty Trash
                   </Button>
-                </PurchaseButtonWrapper>
-                <CartItemsWrapper>
-                  {addedBooksToCartArr.map(book => {
-                    return (
-                      <CartItem
-                        key={book.id}
-                        allBooks={addedBooksToCartArr}
-                        book={book} />
-                    )
-                  })}
-                </CartItemsWrapper>
-                <EmptyTrashTotalCountPriceWrapper>
-                  <EmptyTrashButtonWrapper>
-                    <Button
-                      btnType="purple"
-                      onClick={() => dispatch(showConfirmClearCartModal())}>
-                      Empty Trash
-                    </Button>
-                  </EmptyTrashButtonWrapper>
-                  <TotalCountPriceWrapper>
-                    <TotalCountPrice>Total count: {totalCount}</TotalCountPrice>
-                    <TotalCountPrice>Total price: {totalPrice}$</TotalCountPrice>
-                  </TotalCountPriceWrapper>
-                </EmptyTrashTotalCountPriceWrapper>
-                <ConfirmClearCartModal />
-              </>
-            ) : (
-              <EmptyCartBlockWrapper>
-                <CartImg fill="#464646" />
-                <EmptyCartMessage>Cart empty...</EmptyCartMessage>
-              </EmptyCartBlockWrapper>
-            )}
-          </CartPageContent>
-        ) : <Loader />}
-        <PurchaseModal />
-      </HeaderLayout>
-    </CartPageWrapper>
+                </EmptyTrashButtonWrapper>
+                <TotalCountPriceWrapper>
+                  <TotalCountPrice>Total count: {totalCount}</TotalCountPrice>
+                  <TotalCountPrice>Total price: {totalPrice}$</TotalCountPrice>
+                </TotalCountPriceWrapper>
+              </EmptyTrashTotalCountPriceWrapper>
+              <ConfirmClearCartModal />
+            </>
+          ) : (
+            <EmptyCartBlockWrapper>
+              <CartImg fill="#464646" />
+              <EmptyCartMessage>Cart empty...</EmptyCartMessage>
+            </EmptyCartBlockWrapper>
+          )}
+        </CartPageContent>
+      ) : <Loader />}
+      <PurchaseModal />
+    </HeaderLayout>
   )
 }
 

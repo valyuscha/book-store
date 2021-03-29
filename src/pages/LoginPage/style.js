@@ -21,15 +21,15 @@ export const Title = styled.h2`
   font-size: 30px;
   text-align: center;
   margin-bottom: 20px;
-  
+
   @media screen and (max-width: 468px) {
     font-size: 24px;
   }
-  
+
   @media screen and (max-width: 384px) {
     font-size: 20px;
   }
-  
+
   @media screen and (max-width: 327px) {
     font-size: 19px;
   }

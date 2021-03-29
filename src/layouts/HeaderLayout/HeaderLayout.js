@@ -15,6 +15,7 @@ import {
   LogoutImg,
   LogoWrapper,
   MiniScreensLogo,
+  MiniScreensLogoWrapper,
   ProfileLogoutCartWrapper,
   ProfileLogoutWrapper,
   PurchasesAmount,
@@ -30,17 +31,15 @@ const HeaderLayout = ({children}) => {
   const {totalCount} = useSelector(({cart}) => cart)
   const activeUser = JSON.parse(localStorage.getItem('activeUser'))
 
-  const goToCartPageHandler = (event) => {
+  const goToCartPageHandler = () => {
     if (location.pathname !== '/cart') {
-      const {tagName} = event.target
+      history.push('/cart')
+    }
+  }
 
-      if (
-        tagName.toLowerCase() === 'svg'
-        || tagName.toLowerCase() === 'path'
-        || tagName.toLowerCase() === 'span'
-      ) {
-        history.push('/cart')
-      }
+  const goToCatalogPageHandler = () => {
+    if (location.pathname !== '/catalog') {
+      history.push('/catalog')
     }
   }
 
@@ -49,7 +48,7 @@ const HeaderLayout = ({children}) => {
       <HeaderWrapper>
         <Header>
           <LogoWrapper>
-            <Logo onClick={() => history.push('/catalog')}>
+            <Logo onClick={goToCatalogPageHandler}>
               JS Band Store
             </Logo>
           </LogoWrapper>
@@ -61,9 +60,11 @@ const HeaderLayout = ({children}) => {
               <UserName>{activeUser.name}</UserName>
               <UserAvatar src={activeUser.avatar} />
             </ProfileLogoutWrapper>
-            <CartWrapper onClick={goToCartPageHandler}>
-              <CartImg fill="#fff" />
-              <PurchasesAmountWrapper>
+            <CartWrapper>
+              <CartImg
+                fill="#fff"
+                onClick={goToCartPageHandler} />
+              <PurchasesAmountWrapper onClick={goToCartPageHandler}>
                 <PurchasesAmount>
                   {totalCount > 9 ? '9+' : totalCount}
                 </PurchasesAmount>
@@ -72,9 +73,11 @@ const HeaderLayout = ({children}) => {
           </ProfileLogoutCartWrapper>
         </Header>
       </HeaderWrapper>
-      <MiniScreensLogo onClick={() => history.push('/catalog')}>
-        JS Band Store
-      </MiniScreensLogo>
+      <MiniScreensLogoWrapper>
+        <MiniScreensLogo onClick={goToCatalogPageHandler}>
+          JS Band Store
+        </MiniScreensLogo>
+      </MiniScreensLogoWrapper>
       <ConfirmLogoutModal />
       {children}
     </>

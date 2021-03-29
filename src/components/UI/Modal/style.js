@@ -22,4 +22,6 @@ export const ModalContentWrapper = styled.div`
   border-radius: 10px;
   width: 80%;
   max-width: 350px;
+  max-height: 80vh;
+  overflow: auto;
 `

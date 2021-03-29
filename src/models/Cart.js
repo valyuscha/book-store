@@ -96,38 +96,14 @@ class Cart {
 
     return Cart._instance
   }
-}
 
-// const book = {
-//   id: 1,
-//   title: 'Book',
-//   price: 40,
-//   count: 5
-// }
-//
-// const book2 = {
-//   id: 2,
-//   title: 'Book2',
-//   price: 30,
-//   count: 10
-// }
-//
-// const book3 = {
-//   id: 3,
-//   title: 'Book3',
-//   price: 55,
-//   count: 14
-// }
-//
-// const cart = new Cart({})
-// cart.addBookToCart(book, 3, 120)
-// cart.addBookToCart(book2, 9, 270)
-// cart.addBookToCart(book3, 14, 770)
-//
-// cart.removeBookFromCart(2)
-//
-// cart.editCountOfOneBookDuplicates(1, 'add')
-//
-// console.log(cart)
+  clearCart = () => {
+    this.addedBooks = {}
+    this.totalPrice = 0
+    this.totalCount = 0
+
+    return Cart._instance
+  }
+}
 
 export default Cart

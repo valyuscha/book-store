@@ -6,13 +6,13 @@ import {filterBooksByPrice} from './filterBooksByPrice'
 import {filterBooksByName} from './filterBooksByName'
 
 import {
-  FiltersSectionWrapper,
-  FiltersWrapper,
   FilterFieldWrapper,
-  OpenCloseFiltersWrapper,
+  FiltersSectionWrapper,
   FiltersTitle,
+  FiltersWrapper,
   OpenCloseFiltersButton,
-  OpenCloseFiltersIcon
+  OpenCloseFiltersIcon,
+  OpenCloseFiltersWrapper
 } from './style'
 
 const BooksCatalogFilters = ({filterBooksFnc}) => {

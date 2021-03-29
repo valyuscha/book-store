@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {addNewBookToCart} from 'store'
+import {addNewBookToCart, showAddedToCartBookModal} from 'store'
 import {Button} from 'components/UI'
 import {minusIcon, plusIcon} from 'assets'
 import {countTotalPriceOfSameBooks} from 'utils'
@@ -73,6 +73,7 @@ const BookPriceCountInfo = () => {
 
   const addNewBookToCartHandler = () => {
     if (booksCount) {
+      dispatch(showAddedToCartBookModal())
       dispatch(addNewBookToCart(currentBookInfo, booksCount, totalPrice))
       setBooksCount(1)
       setCanDecreaseBooksCount(false)

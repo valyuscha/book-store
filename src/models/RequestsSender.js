@@ -25,32 +25,20 @@ class RequestsSender extends ResponseDebugger {
     )
   }
 
-  getAllBooks = async (token, dispatch) => {
-    return await this.getResponse(axios.get('/books', {
-      params: {token}
-    }), dispatch, logout)
+  getAllBooks = async (dispatch) => {
+    return await this.getResponse(axios.get('/books'), dispatch, logout)
   }
 
-  getCurrentBookInfo = async (bookId, token, dispatch) => {
-    return await this.getResponse(axios.get(`/books/${bookId}`, {
-      params: {token}
-    }), dispatch, logout)
+  getCurrentBookInfo = async (bookId, dispatch) => {
+    return await this.getResponse(axios.get(`/books/${bookId}`), dispatch, logout)
   }
 
-  purchase = async (booksList, token, dispatch) => {
+  purchase = async (booksList, dispatch) => {
     const purchaseData = {
       books: booksList
     }
 
-    return await this.getResponse(axios.post(
-      '/purchase',
-      JSON.stringify(purchaseData),
-      {
-        params: {token}
-      },
-      dispatch,
-      () => console.log('Error')
-    ))
+    return await this.getResponse(axios.post('/purchase', JSON.stringify(purchaseData)), dispatch, logout)
   }
 }
 

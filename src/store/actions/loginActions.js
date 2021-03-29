@@ -1,4 +1,5 @@
 import {serverCommunicationMethods} from 'serverCommunication'
+import {clearCart} from 'store'
 import {deleteCookie} from 'utils'
 import {START_LOGIN, LOGIN, LOGOUT} from '../actionTypes'
 
@@ -18,8 +19,9 @@ export const logout = () => {
   deleteCookie('token')
   localStorage.removeItem('activeUser')
 
-  return {
-    type: LOGOUT
+  return dispatch => {
+    dispatch(clearCart())
+    dispatch({type: LOGOUT})
   }
 }
 

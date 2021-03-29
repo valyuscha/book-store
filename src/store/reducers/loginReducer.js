@@ -2,9 +2,10 @@ import {getCookie} from 'utils'
 import {START_LOGIN, LOGIN, LOGOUT} from '../actionTypes'
 
 const token = getCookie('token')
+const activeUser = JSON.parse(localStorage.getItem('activeUser'))
 
 const initialState = {
-  isLoggedIn: token !== 'null',
+  isLoggedIn: !!token && !!activeUser,
   isLoading: false
 }
 

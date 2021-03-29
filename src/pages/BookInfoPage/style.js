@@ -1,13 +1,21 @@
 import styled from 'styled-components'
 
+export const BookInfoPageWrapper = styled.div`
+  height: calc(100vh - 79px);
+  overflow: auto;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+
+  @media screen and (max-width: 650px) {
+    height: calc(100vh - 70px);
+  }
+`
+
 export const BookInfoWrapper = styled.div`
   width: 90%;
   max-width: 1250px;
-  margin: 0 auto 15px;
-
-  @media screen and (min-width: 650px) {
-    padding-top: 90px;
-  }
+  margin: 20px auto;
 `
 
 export const BookTitle = styled.h2`
@@ -21,8 +29,6 @@ export const BookTitle = styled.h2`
   }
 `
 
-export const BookInfoPageWrapper = styled.div``
-
 export const BookInfoContent = styled.div`
   display: flex;
   justify-content: space-between;
@@ -30,13 +36,6 @@ export const BookInfoContent = styled.div`
   @media screen and (max-width: 599px) {
     flex-direction: column;
   }
-`
-
-export const LoaderWrapper = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 `
 
 export const BookInfoPartWrapper = styled.div`

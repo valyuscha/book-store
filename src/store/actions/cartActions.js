@@ -1,9 +1,15 @@
 import {serverCommunicationMethods} from 'serverCommunication'
+import {showPurchaseModal} from 'store'
 import {getCartValue} from 'utils'
 import {
   ADD_NEW_BOOK_TO_CART,
   REMOVE_BOOK_FROM_CART,
-  EDIT_BOOKS_COUNT
+  EDIT_BOOKS_COUNT,
+  CLEAR_CART,
+  SEND_PURCHASE_REQUEST,
+  GET_PURCHASE_REQUEST,
+  SET_PURCHASE_MESSAGE,
+  CLEAR_PURCHASE_MESSAGE
 } from '../actionTypes'
 
 const cart = getCartValue()
@@ -30,71 +36,66 @@ const actionCreator = (books, action) => {
 export const addNewBookToCart = (book, addedCount, currentBookTotalPrice) => {
   const newBooks = cart.addBookToCart(book, addedCount, currentBookTotalPrice)
 
-  const changedCart = {
-    addedBooks: newBooks.addedBooks,
-    totalPrice: newBooks.totalPrice,
-    totalCount: newBooks.totalCount
-  }
-
-  localStorage.setItem('addedToCartBooks', JSON.stringify(changedCart))
-
-  return {
-    type: ADD_NEW_BOOK_TO_CART,
-    payload: {
-      addedBooks: newBooks.addedBooks,
-      totalPrice: newBooks.totalPrice,
-      totalCount: newBooks.totalCount
-    }
+  return dispatch => {
+    dispatch(actionCreator(newBooks, ADD_NEW_BOOK_TO_CART))
   }
 }
 
 export const editBooksCount = (bookId, action) => {
   const editedBooks = cart.editCountOfOneBookDuplicates(bookId, action)
 
-  const changedCart = {
-    addedBooks: editedBooks.addedBooks,
-    totalPrice: editedBooks.totalPrice,
-    totalCount: editedBooks.totalCount
-  }
-
-  localStorage.setItem('addedToCartBooks', JSON.stringify(changedCart))
-
-  return {
-    type: EDIT_BOOKS_COUNT,
-    payload: {
-      addedBooks: editedBooks.addedBooks,
-      totalPrice: editedBooks.totalPrice,
-      totalCount: editedBooks.totalCount
-    }
+  return dispatch => {
+    dispatch(actionCreator(editedBooks, EDIT_BOOKS_COUNT))
   }
 }
 
 export const deleteBookFromCart = (bookId) => {
   const booksListWithoutDeletedBook = cart.removeBookFromCart(bookId)
 
-  const changedCart = {
-    addedBooks: booksListWithoutDeletedBook.addedBooks,
-    totalPrice: booksListWithoutDeletedBook.totalPrice,
-    totalCount: booksListWithoutDeletedBook.totalCount
-  }
-
-  localStorage.setItem('addedToCartBooks', JSON.stringify(changedCart))
-
-  return {
-    type: REMOVE_BOOK_FROM_CART,
-    payload: {
-      addedBooks: booksListWithoutDeletedBook.addedBooks,
-      totalPrice: booksListWithoutDeletedBook.totalPrice,
-      totalCount: booksListWithoutDeletedBook.totalCount
-    }
+  return dispatch => {
+    dispatch(actionCreator(booksListWithoutDeletedBook, REMOVE_BOOK_FROM_CART))
   }
 }
 
-export const purchase = (books, token) => {
-  return async dispatch => {
-    console.log('Click')
-    const response = await serverCommunicationMethods.purchase(books, token, dispatch)
+export const clearCart = () => {
+  const emptyCart = cart.clearCart()
 
-    console.log('Response', response)
+  return dispatch => {
+    dispatch(actionCreator(emptyCart, CLEAR_CART))
+  }
+}
+
+export const sendPurchaseRequest = () => {
+  return {
+    type: SEND_PURCHASE_REQUEST
+  }
+}
+
+export const getPurchaseRequest = () => {
+  return {
+    type: GET_PURCHASE_REQUEST
+  }
+}
+
+export const setPurchaseMessage = (message) => {
+  return {
+    type: SET_PURCHASE_MESSAGE,
+    payload: message
+  }
+}
+
+export const clearPurchaseMessage = () => {
+  return {
+    type: CLEAR_PURCHASE_MESSAGE
+  }
+}
+
+export const purchase = (books) => {
+  return async dispatch => {
+    dispatch(sendPurchaseRequest())
+    const response = await serverCommunicationMethods.purchase(books, dispatch)
+    dispatch(setPurchaseMessage(response.data.message))
+    dispatch(getPurchaseRequest())
+    dispatch(showPurchaseModal())
   }
 }

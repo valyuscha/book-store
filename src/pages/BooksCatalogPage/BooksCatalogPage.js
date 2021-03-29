@@ -1,32 +1,29 @@
 import React, {useEffect, useState} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
-import {Ellipsis} from 'react-awesome-spinners'
-import {getAllBooks, finishGettingBooksInfo, startGettingBooksInfo} from 'store'
+import {useDispatch, useSelector} from 'react-redux'
+import {getAllBooks, startLoading, stopLoading} from 'store'
 import {ErrorBoundary} from 'hoc'
-import {getCookie} from 'utils'
 import {HeaderLayout} from 'layouts'
-import {BooksCatalogFilters, BookCard} from 'components'
+import {BookCard, BooksCatalogFilters} from 'components'
 import {bookIcon} from 'assets'
+import {Loader} from 'components/UI'
 
 import {
-  MainContentWrapper,
-  BooksCatalogPageWrapper,
-  LoaderWrapper,
-  BooksWrapper,
-  NoBooksWrapper,
   BookImg,
-  NoBookMessage
+  BooksCatalogPageWrapper,
+  BooksWrapper,
+  MainContentWrapper,
+  NoBookMessage,
+  NoBooksWrapper
 } from './style'
 
 const BooksCatalogPage = () => {
   const dispatch = useDispatch()
   const {allBooks, isLoading} = useSelector(({books}) => books)
   const [booksForRender, setBooksForRender] = useState([])
-  const token = getCookie('token')
 
   useEffect(() => {
-    dispatch(startGettingBooksInfo())
-    dispatch(getAllBooks(token))
+    dispatch(startLoading())
+    dispatch(getAllBooks())
   }, [])
 
   useEffect(() => {
@@ -35,14 +32,14 @@ const BooksCatalogPage = () => {
 
   useEffect(() => {
     if (booksForRender.length && isLoading) {
-      dispatch(finishGettingBooksInfo())
+      dispatch(stopLoading())
     }
   }, [booksForRender, isLoading])
-  
+
   return (
     <BooksCatalogPageWrapper>
-      {!isLoading ? (
-        <HeaderLayout>
+      <HeaderLayout>
+        {!isLoading ? (
           <MainContentWrapper>
             <BooksCatalogFilters filterBooksFnc={setBooksForRender} />
             {booksForRender.length ? (
@@ -58,12 +55,8 @@ const BooksCatalogPage = () => {
               </NoBooksWrapper>
             )}
           </MainContentWrapper>
-        </HeaderLayout>
-      ) : (
-        <LoaderWrapper>
-          <Ellipsis color="#fff" />
-        </LoaderWrapper>
-      )}
+        ) : <Loader />}
+      </HeaderLayout>
     </BooksCatalogPageWrapper>
   )
 }

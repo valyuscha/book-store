@@ -6,5 +6,5 @@ export const colors = {
   red: '#ff0000',
   errorMessageBack: '#ffe2d9',
   purple: '#be1036',
-  cardBack: '#0ababa'
+  cardBack: '#4B0082'
 }

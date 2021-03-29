@@ -1,4 +1,4 @@
-#JS Band Store
+# JS Band Store
 
 This is web app where you can find lots of books for learning 
 JavaScript.
@@ -6,7 +6,7 @@ JavaScript.
 The app is responsive and available on devices up to 320px wide. So, you can use it 
 on your phone.
 
-###Scripts:
+### Scripts:
 1. start - use `npm start` or `npm run start` to run the project.
 1. build - use `npm build` or `npm run build` to build the project
 into production version.
@@ -14,7 +14,7 @@ into production version.
 1. lint - use `npm lint` or `npm run lint` to check and fix eslint errors.
 1. precommit - husky uses this script to run eslint and tests before commiting changes.
 
-###Scenarios:
+### Scenarios:
 1. Firstly you need to login. You need to write your name. The name has to contain at 
    least 4 symbols and no more than 16 symbols.
 1. Then you will be redirected to books catalog page. There you can see full catalog 
@@ -38,7 +38,7 @@ into production version.
 1. Than you can continue observing books or logout by clicking logout button in the 
    header. If you logout before making the order the cart will be cleared.
    
-###Used tools:
+### Used tools:
 1. React
 1. Redux
 1. Styled Components

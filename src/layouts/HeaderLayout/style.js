@@ -1,19 +1,6 @@
 import styled from 'styled-components'
 import {colors} from 'assets'
-
-export const MiniScreensLogo = styled.h1`
-  width: 90%;
-  max-width: 1250px;
-  padding: 90px 0 20px;
-  margin: 0 auto 30px;
-  color: ${colors.white};
-  font-size: 24px;
-  border-bottom: 1px solid ${colors.black};
-  
-  @media screen and (min-width: 650px) {
-    display: none;
-  }
-`
+import {ReactComponent as CartIcon} from 'assets/images/cartIcon.svg'
 
 export const HeaderWrapper = styled.div`
   background: ${colors.purple};
@@ -91,7 +78,7 @@ export const CartWrapper = styled.div`
   margin-left: 20px;  
 `
 
-export const CartImg = styled.img`
+export const CartImg = styled(CartIcon)`
   width: 25px;  
   height: 25px; 
   margin-right: 10px;
@@ -112,4 +99,23 @@ export const PurchasesAmountWrapper = styled.div`
 export const PurchasesAmount = styled.span`
   font-size: 16px;
   color: ${colors.purple};
+`
+
+export const MiniScreensLogoWrapper = styled.div`
+  width: 90%;
+  max-width: 1250px;
+  padding: 20px 0;
+  margin: 0 auto 30px;
+  border-bottom: 1px solid ${colors.black};
+
+  @media screen and (min-width: 650px) {
+    display: none;
+  }
+`
+
+export const MiniScreensLogo = styled.h1`
+  color: ${colors.white};
+  font-size: 24px;
+  cursor: pointer;
+  width: fit-content;
 `

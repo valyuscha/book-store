@@ -39,10 +39,7 @@ export const FiltersWrapper = styled.div`
   display: flex;
   overflow: hidden;
   margin-bottom: 30px;
-
-  @media screen and (max-width: 710px) {
-    justify-content: space-between;
-  }
+  justify-content: space-between;
 
   @media screen and (max-width: 400px) {
     flex-direction: column;
@@ -67,8 +64,7 @@ export const FilterFieldWrapper = styled.div`
   }
 
   @media screen and (max-width: 400px) {
-    width: 90vw;
-    max-width: 90vw;
+    width: 100%;
 
     &:first-of-type {
       margin-bottom: 20px;

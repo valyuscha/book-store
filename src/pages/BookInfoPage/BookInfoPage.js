@@ -1,30 +1,28 @@
 import React, {useEffect} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
-import {Ellipsis} from 'react-awesome-spinners'
+import {useDispatch, useSelector} from 'react-redux'
 import {useLocation} from 'react-router-dom'
 import {HeaderLayout} from 'layouts'
 import {getCurrentBookInfo} from 'store'
-import {BookPriceCountInfo} from 'components'
-import {getCookie} from 'utils'
+import {AddedBookToCartModal, BookPriceCountInfo} from 'components'
+import {Loader} from 'components/UI'
 
 import {
-  BookInfoWrapper,
-  BookTitle,
-  BookInfoPageWrapper,
-  BookInfoContent,
-  LoaderWrapper,
-  BookInfoPartWrapper,
-  BookCoverAuthorLevelWrapper,
-  BookCover,
   Author,
-  Level,
-  TagsDescriptionWrapper,
+  BookCover,
+  BookCoverAuthorLevelWrapper,
+  BookInfoContent,
+  BookInfoPageWrapper,
+  BookInfoPartWrapper,
+  BookInfoWrapper,
+  BookMiniInfoPart,
+  BookMiniInfoWrapper,
+  BookPriceCountInfoWrapper,
+  BookTitle,
   Description,
   DescriptionLabel,
+  Level,
   Tags,
-  BookPriceCountInfoWrapper,
-  BookMiniInfoPart,
-  BookMiniInfoWrapper
+  TagsDescriptionWrapper
 } from './style'
 
 const BookInfoPage = () => {
@@ -32,12 +30,11 @@ const BookInfoPage = () => {
   const location = useLocation()
   const pathName = location.pathname
   const bookId = pathName.slice(9)
-  const token = getCookie('token')
 
   const {currentBookInfo, isLoading} = useSelector(({books}) => books)
 
   useEffect(() => {
-    dispatch(getCurrentBookInfo(bookId, token))
+    dispatch(getCurrentBookInfo(bookId))
   }, [])
 
   const isCurrentBookEmpty = Object.keys(currentBookInfo).length === 0
@@ -76,36 +73,35 @@ const BookInfoPage = () => {
 
   return (
     <BookInfoPageWrapper>
-      {!isLoading && !isCurrentBookEmpty ? (
-        <HeaderLayout>
-          <BookInfoWrapper>
-            <BookTitle>{currentBookInfo.title}</BookTitle>
-            <BookInfoContent>
-              <BookInfoPartWrapper>
-                <BookCoverAuthorLevelWrapper>
-                  <BookCover cover={currentBookInfo.cover} />
-                  <BooksAuthorLevel />
-                </BookCoverAuthorLevelWrapper>
-                <TagsDescription />
-              </BookInfoPartWrapper>
-              <BookMiniInfoPart>
-                <BookCover cover={currentBookInfo.cover} />
-                <BookMiniInfoWrapper>
-                  <BooksAuthorLevel />
+      <HeaderLayout>
+        {!isLoading && !isCurrentBookEmpty ? (
+          <>
+            <BookInfoWrapper>
+              <BookTitle>{currentBookInfo.title}</BookTitle>
+              <BookInfoContent>
+                <BookInfoPartWrapper>
+                  <BookCoverAuthorLevelWrapper>
+                    <BookCover cover={currentBookInfo.cover} />
+                    <BooksAuthorLevel />
+                  </BookCoverAuthorLevelWrapper>
                   <TagsDescription />
-                </BookMiniInfoWrapper>
-              </BookMiniInfoPart>
-              <BookPriceCountInfoWrapper>
-                <BookPriceCountInfo />
-              </BookPriceCountInfoWrapper>
-            </BookInfoContent>
-          </BookInfoWrapper>
-        </HeaderLayout>
-      ) : (
-        <LoaderWrapper>
-          <Ellipsis color="#fff" />
-        </LoaderWrapper>
-      )}
+                </BookInfoPartWrapper>
+                <BookMiniInfoPart>
+                  <BookCover cover={currentBookInfo.cover} />
+                  <BookMiniInfoWrapper>
+                    <BooksAuthorLevel />
+                    <TagsDescription />
+                  </BookMiniInfoWrapper>
+                </BookMiniInfoPart>
+                <BookPriceCountInfoWrapper>
+                  <BookPriceCountInfo />
+                </BookPriceCountInfoWrapper>
+              </BookInfoContent>
+            </BookInfoWrapper>
+            <AddedBookToCartModal />
+          </>
+        ) : <Loader />}
+      </HeaderLayout>
     </BookInfoPageWrapper>
   )
 }

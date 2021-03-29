@@ -11,7 +11,7 @@ describe('Check if total price has correct format', () => {
     expect(result).toEqual(451.9)
   })
 
-  it('Price should have no numbers after the dot', () => {
+  it('Price should NOT have numbers after the dot', () => {
     const result = countTotalPriceOfSameBooks(40, 2)
     expect(result).toEqual(80)
   })

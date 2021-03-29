@@ -1,14 +1,14 @@
 import {serverCommunicationMethods} from 'serverCommunication'
 import {
-  START_GETTING_BOOKS_INFO,
+  START_LOADING,
   SET_ALL_BOOKS,
-  FINISH_GETTING_BOOKS_INFO,
+  STOP_LOADING,
   SET_CURRENT_BOOK_INFO
 } from '../actionTypes'
 
-export const startGettingBooksInfo = () => {
+export const startLoading = () => {
   return {
-    type: START_GETTING_BOOKS_INFO
+    type: START_LOADING
   }
 }
 
@@ -19,9 +19,9 @@ export const setAllBooks = (books) => {
   }
 }
 
-export const finishGettingBooksInfo = () => {
+export const stopLoading = () => {
   return {
-    type: FINISH_GETTING_BOOKS_INFO
+    type: STOP_LOADING
   }
 }
 
@@ -32,23 +32,24 @@ export const setCurrentBookInfo = (bookInfo) => {
   }
 }
 
-export const getAllBooks = (token) => {
+export const getAllBooks = () => {
   return async dispatch => {
-    const response = await serverCommunicationMethods.getAllBooks(token, dispatch)
+    const response = await serverCommunicationMethods.getAllBooks(dispatch)
     if (response && response.data) {
       dispatch(setAllBooks(response.data))
     }
   }
 }
 
-export const getCurrentBookInfo = (bookId, token) => {
+export const getCurrentBookInfo = (bookId) => {
   return async dispatch => {
-    dispatch(startGettingBooksInfo())
+    dispatch(startLoading())
     const response = await serverCommunicationMethods
-      .getCurrentBookInfo(bookId, token, dispatch)
+      .getCurrentBookInfo(bookId, dispatch)
 
     if (response && response.data) {
       dispatch(setCurrentBookInfo(response.data))
+      dispatch(stopLoading())
     }
   }
 }

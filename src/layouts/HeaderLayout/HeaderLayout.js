@@ -1,12 +1,11 @@
 import React from 'react'
-import {useDispatch} from 'react-redux'
-import {useHistory} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
+import {useHistory, useLocation} from 'react-router-dom'
 import {showConfirmLogoutModal} from 'store'
 import {ConfirmLogoutModal} from 'components'
-import {cartIcon, logoutIcon} from 'assets'
+import {logoutIcon} from 'assets'
 
 import {
-  MiniScreensLogo,
   CartImg,
   CartWrapper,
   Header,
@@ -15,6 +14,8 @@ import {
   LogoutButton,
   LogoutImg,
   LogoWrapper,
+  MiniScreensLogo,
+  MiniScreensLogoWrapper,
   ProfileLogoutCartWrapper,
   ProfileLogoutWrapper,
   PurchasesAmount,
@@ -26,14 +27,28 @@ import {
 const HeaderLayout = ({children}) => {
   const dispatch = useDispatch()
   const history = useHistory()
+  const location = useLocation()
+  const {totalCount} = useSelector(({cart}) => cart)
   const activeUser = JSON.parse(localStorage.getItem('activeUser'))
+
+  const goToCartPageHandler = () => {
+    if (location.pathname !== '/cart') {
+      history.push('/cart')
+    }
+  }
+
+  const goToCatalogPageHandler = () => {
+    if (location.pathname !== '/catalog') {
+      history.push('/catalog')
+    }
+  }
 
   return (
     <>
       <HeaderWrapper>
         <Header>
           <LogoWrapper>
-            <Logo onClick={() => history.push('/catalog')}>
+            <Logo onClick={goToCatalogPageHandler}>
               JS Band Store
             </Logo>
           </LogoWrapper>
@@ -46,17 +61,23 @@ const HeaderLayout = ({children}) => {
               <UserAvatar src={activeUser.avatar} />
             </ProfileLogoutWrapper>
             <CartWrapper>
-              <CartImg src={cartIcon} />
-              <PurchasesAmountWrapper>
-                <PurchasesAmount>9+</PurchasesAmount>
+              <CartImg
+                fill="#fff"
+                onClick={goToCartPageHandler} />
+              <PurchasesAmountWrapper onClick={goToCartPageHandler}>
+                <PurchasesAmount>
+                  {totalCount > 9 ? '9+' : totalCount}
+                </PurchasesAmount>
               </PurchasesAmountWrapper>
             </CartWrapper>
           </ProfileLogoutCartWrapper>
         </Header>
       </HeaderWrapper>
-      <MiniScreensLogo onClick={() => history.push('/catalog')}>
-        JS Band Store
-      </MiniScreensLogo>
+      <MiniScreensLogoWrapper>
+        <MiniScreensLogo onClick={goToCatalogPageHandler}>
+          JS Band Store
+        </MiniScreensLogo>
+      </MiniScreensLogoWrapper>
       <ConfirmLogoutModal />
       {children}
     </>

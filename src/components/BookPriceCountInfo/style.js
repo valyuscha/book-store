@@ -36,6 +36,8 @@ export const AddToCartButtonWrapper = styled.div`
 
 export const CountValue = styled.div`
   display: flex;
+  width: 100px;
+  justify-content: space-between;
 `
 
 export const Count = styled.p`

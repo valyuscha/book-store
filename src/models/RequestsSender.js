@@ -3,6 +3,16 @@ import {showResponseErrorMessage, logout} from 'store'
 import ResponseDebugger from './ResponseDebugger'
 
 class RequestsSender extends ResponseDebugger {
+  constructor() {
+    super()
+
+    if (RequestsSender._instance) {
+      return RequestsSender._instance
+    }
+
+    RequestsSender._instance = this
+  }
+
   login = async (userName, dispatch) => {
     const formData = {
       username: userName
@@ -15,16 +25,20 @@ class RequestsSender extends ResponseDebugger {
     )
   }
 
-  getAllBooks = async (token, dispatch) => {
-    return await this.getResponse(axios.get('/books', {
-      params: {token}
-    }), dispatch, logout)
+  getAllBooks = async (dispatch) => {
+    return await this.getResponse(axios.get('/books'), dispatch, logout)
   }
 
-  getCurrentBookInfo = async (bookId, token, dispatch) => {
-    return await this.getResponse(axios.get(`/books/${bookId}`, {
-      params: {token}
-    }), dispatch, logout)
+  getCurrentBookInfo = async (bookId, dispatch) => {
+    return await this.getResponse(axios.get(`/books/${bookId}`), dispatch, logout)
+  }
+
+  purchase = async (booksList, dispatch) => {
+    const purchaseData = {
+      books: booksList
+    }
+
+    return await this.getResponse(axios.post('/purchase', JSON.stringify(purchaseData)), dispatch, logout)
   }
 }
 

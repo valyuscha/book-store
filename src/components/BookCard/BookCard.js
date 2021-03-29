@@ -3,13 +3,13 @@ import {useHistory} from 'react-router-dom'
 import {Button} from 'components/UI'
 
 import {
-  BookCover,
-  CardWrapper,
-  CardContentWrapper,
-  BookName,
   BookAuthor,
-  PriceViewWrapper,
+  BookCover,
+  BookName,
+  CardContentWrapper,
+  CardWrapper,
   Price,
+  PriceViewWrapper,
   ViewButtonWrapper
 } from './style'
 
